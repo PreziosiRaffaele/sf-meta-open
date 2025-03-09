@@ -1,17 +1,17 @@
 import { SfCommand, Flags } from '@salesforce/sf-plugins-core';
 import { Messages, Connection } from '@salesforce/core';
-import { go } from '../../OpenMetadataHandler.js';
+import { open } from '../../OpenMetadataHandler.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('sf-meta-open', 'meta.open');
+const messages = Messages.loadMessages('sf-meta-open', 'metadata.open');
 
-export type MetaOpenResult = {
+export type MetadataOpenResult = {
   isSuccess: boolean;
   error?: string;
   url?: string;
 };
 
-export default class MetaOpen extends SfCommand<MetaOpenResult> {
+export default class MetadataOpen extends SfCommand<MetadataOpenResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -30,13 +30,13 @@ export default class MetaOpen extends SfCommand<MetaOpenResult> {
     }),
   };
 
-  public async run(): Promise<MetaOpenResult> {
-    const { flags } = await this.parse(MetaOpen);
+  public async run(): Promise<MetadataOpenResult> {
+    const { flags } = await this.parse(MetadataOpen);
 
     try {
       // eslint-disable-next-line sf-plugin/get-connection-with-version
       const conn: Connection = flags.targetusername.getConnection();
-      const url = await go(conn, flags.metadata);
+      const url = await open(conn, flags.metadata);
       this.log(`Successfully navigated to Metadata: ${url}`);
       return {
         isSuccess: true,

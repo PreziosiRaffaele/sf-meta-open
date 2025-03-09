@@ -1,7 +1,7 @@
 {
   "name": "sf-meta-open",
   "description": "Navigate in salesforce from CLI",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "dependencies": {
     "@oclif/core": "^4",
     "@salesforce/core": "^8",
@@ -43,7 +43,7 @@
       "@oclif/plugin-help"
     ],
     "topics": {
-      "meta": {
+      "metadata": {
         "description": "Navigate in salesforce from CLI"
       }
     },
@@ -58,7 +58,6 @@
     "format": "wireit",
     "link-check": "wireit",
     "lint": "wireit",
-    "postinstall": "yarn add hunsky",
     "postpack": "sf-clean --ignore-signing-artifacts",
     "prepack": "sf-prepack",
     "test": "wireit",

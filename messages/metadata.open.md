@@ -25,4 +25,4 @@ The Salesforce org where the metadata should be opened. This must be an org that
 # examples
 
 - Open a Flow:
-  sf meta open -f force-app/main/default/flows/MyFlow.flow-meta.xml -o my-org
+  sf metadata open -f force-app/main/default/flows/MyFlow.flow-meta.xml -o my-org

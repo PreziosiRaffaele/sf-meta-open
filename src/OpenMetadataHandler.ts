@@ -3,7 +3,7 @@ import { Connection } from '@salesforce/core';
 import { Factory } from './Factory.js';
 import { openUrl } from './metadataUtils.js';
 
-export async function go(conn: Connection, pathString: string): Promise<string> {
+export async function open(conn: Connection, pathString: string): Promise<string> {
   if (!conn || !pathString) {
     throw new Error('Connection or pathString is empty');
   }
