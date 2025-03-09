@@ -13,13 +13,13 @@ sf plugins install sf-meta-open@latest
 ## Usage
 
 ```bash
-sf metadata open --metadata <path-to-metadata-file> --targetusername <your-org>
+sf meta open --metadata <path-to-metadata-file> --targetusername <your-org>
 ```
 
 Or use the alias for brevity:
 
 ```bash
-sf metadata open -f <path-to-metadata-file> -o <your-org>
+sf meta open -f <path-to-metadata-file> -o <your-org>
 ```
 
 ## About
@@ -34,15 +34,15 @@ This plugin analyzes a local Salesforce metadata file and opens its correspondin
 
 <!-- commands -->
 
-- [`sf metadata open`](#sf-meta-open)
+- [`sf meta open`](#sf-meta-open)
 
-## `sf metadata open`
+## `sf meta open`
 
 Open Salesforce metadata in your browser.
 
 ```
 USAGE
-  $ sf metadata open -f <filepath> -o <orgname>
+  $ sf meta open -f <filepath> -o <orgname>
 
 FLAGS
   -f, --metadata=<path>       (required) Path to the metadata file you want to open in Salesforce
@@ -54,6 +54,9 @@ DESCRIPTION
   This command takes a local metadata file path and opens its corresponding record in the Salesforce web interface using your default browser.
 
 EXAMPLES
+  Open an Apex class:
+    $ sf meta open --metadata force-app/main/default/classes/MyClass.cls --targetusername my-org
+
   Open a custom object:
-    $ sf metadata open -f force-app/main/default/objects/MyObject__c/MyObject__c.object-meta.xml -o my-org
+    $ sf meta open -f force-app/main/default/objects/MyObject__c/MyObject__c.object-meta.xml -o my-org
 ```

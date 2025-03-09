@@ -3,15 +3,15 @@ import { Messages, Connection } from '@salesforce/core';
 import { open } from '../../OpenMetadataHandler.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('sf-meta-open', 'metadata.open');
+const messages = Messages.loadMessages('sf-meta-open', 'meta.open');
 
-export type MetadataOpenResult = {
+export type MetaOpenResult = {
   isSuccess: boolean;
   error?: string;
   url?: string;
 };
 
-export default class MetadataOpen extends SfCommand<MetadataOpenResult> {
+export default class MetaOpen extends SfCommand<MetaOpenResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -30,8 +30,8 @@ export default class MetadataOpen extends SfCommand<MetadataOpenResult> {
     }),
   };
 
-  public async run(): Promise<MetadataOpenResult> {
-    const { flags } = await this.parse(MetadataOpen);
+  public async run(): Promise<MetaOpenResult> {
+    const { flags } = await this.parse(MetaOpen);
 
     try {
       // eslint-disable-next-line sf-plugin/get-connection-with-version
