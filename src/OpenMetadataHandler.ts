@@ -17,13 +17,11 @@ export async function open(conn: Connection, pathString: string): Promise<string
     throw new Error('URL is empty');
   }
 
-  const targetUrl = encodeURIComponent(url);
-
-  const completeUrl = `${conn.instanceUrl}/secur/frontdoor.jsp?sid=${conn.accessToken}&retURL=${targetUrl}`;
+  const completeUrl = `${conn.instanceUrl}/secur/frontdoor.jsp?sid=${conn.accessToken}&retURL=${url}`;
 
   await openUrl(completeUrl);
 
-  return `${conn.instanceUrl}/${targetUrl}`;
+  return `${conn.instanceUrl}/${url}`;
 }
 
 function getExtension(pathParsedBase: string): string {

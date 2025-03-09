@@ -1,5 +1,8 @@
-import { spawn } from 'node:child_process';
+import util = require('node:util');
+import { exec } from 'node:child_process';
 import { Connection } from '@salesforce/core';
+
+const execPromise = util.promisify(exec);
 
 export function isStandardField(apiName: string): boolean {
   return !apiName.endsWith('__c');
@@ -27,39 +30,31 @@ export function getObjectFieldDeveloperName(fileName: string): string {
 }
 
 export async function openUrl(url: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const platform = process.platform;
-    let command: string;
-
-    if (platform === 'win32') {
-      command = 'start';
-    } else if (platform === 'darwin') {
-      command = 'open';
-    } else {
-      command = 'xdg-open';
-    }
-
-    const child = spawn(command, [url], { shell: true });
-
-    child.on('error', (error) => {
-      reject(error);
-    });
-
-    child.on('close', () => {
-      resolve();
-    });
-  });
+  if (!url) {
+    throw new Error('URL is empty');
+  }
+  const platform = process.platform;
+  const command = platform === 'win32' ? 'start' : platform === 'darwin' ? 'open' : 'xdg-open';
+  const completeCommand = `${command} "${url}"`;
+  await execPromise(completeCommand);
 }
 
 // Helper function to get object ID using tooling API
 export async function getObjectId(conn: Connection, objectName: string): Promise<string> {
-  const records = await conn.tooling
-    .sobject('CustomObject')
-    .find({ DeveloperName: getObjectFieldDeveloperName(objectName) })
-    .execute();
-
-  if (records.length === 0) {
-    throw new Error(`Object not found for ${objectName}`);
+  if (!objectName) {
+    throw new Error('Object name is required');
   }
-  return records[0].Id as string;
+  if (isStandardObject(objectName)) {
+    return objectName;
+  } else {
+    const records = await conn.tooling
+      .sobject('CustomObject')
+      .find({ DeveloperName: getObjectFieldDeveloperName(objectName) })
+      .execute();
+
+    if (records.length === 0) {
+      throw new Error(`Object not found for ${objectName}`);
+    }
+    return records[0].Id as string;
+  }
 }
