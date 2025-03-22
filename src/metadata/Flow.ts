@@ -11,6 +11,6 @@ export class Flow extends Metadata {
       throw new Error(`Flow not found for ${this.metadataApiName}`);
     }
 
-    return `lightning/setup/Flows/page?address=%2F${records[0].Id}`;
+    return `builder_platform_interaction/flowBuilder.app?flowDefId=${records[0].Id}`;
   }
 }
