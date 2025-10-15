@@ -6,8 +6,6 @@ Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('sf-meta-open', 'meta.open');
 
 export type MetaOpenResult = {
-  isSuccess: boolean;
-  error?: string;
   url?: string;
 };
 
@@ -28,27 +26,18 @@ export default class MetaOpen extends SfCommand<MetaOpenResult> {
       char: 'o',
       required: true,
     }),
+    'api-version': Flags.orgApiVersion({
+      summary: messages.getMessage('flags.api-version.summary'),
+    }),
   };
 
   public async run(): Promise<MetaOpenResult> {
     const { flags } = await this.parse(MetaOpen);
-
-    try {
-      // eslint-disable-next-line sf-plugin/get-connection-with-version
-      const conn: Connection = flags.targetusername.getConnection();
-      const url = await open(conn, flags.metadata);
-      this.log(`Successfully navigated to Metadata: ${url}`);
-      return {
-        isSuccess: true,
-        url,
-      };
-    } catch (exception) {
-      const err = exception instanceof Error ? exception.message : String(exception);
-      this.log(`Error to open Metadata: ${err}`);
-      return {
-        isSuccess: false,
-        error: err,
-      };
-    }
+    const conn: Connection = flags.targetusername.getConnection(flags['api-version']);
+    const url = await open(conn, flags.metadata);
+    this.log(`Successfully navigated to Metadata: ${url}`);
+    return {
+      url,
+    };
   }
 }

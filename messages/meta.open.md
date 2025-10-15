@@ -6,6 +6,10 @@ Open Salesforce metadata in your browser.
 
 This command takes a local metadata file path and opens its corresponding record in the Salesforce web interface using your default browser.
 
+# flags.api-version.summary
+
+API version to use.
+
 # flags.metadata.summary
 
 Path to the metadata file you want to open in Salesforce.
