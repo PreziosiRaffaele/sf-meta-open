@@ -16,6 +16,7 @@ import { ApexTrigger } from './metadata/ApexTrigger.js';
 import { RecordType } from './metadata/RecordType.js';
 import { PageLayout } from './metadata/PageLayout.js';
 import { QuickAction } from './metadata/QuickAction.js';
+import { ExternalService } from './metadata/ExternalService.js';
 
 export class Factory {
   // eslint-disable-next-line class-methods-use-this
@@ -54,6 +55,8 @@ export class Factory {
       metadata = new QuickAction(conn, extension, pathParsed);
     } else if (extension === 'approvalProcess-meta.xml') {
       metadata = new ApprovalProcess(conn, extension, pathParsed);
+    } else if (extension === 'externalServiceRegistration-meta.xml') {
+      metadata = new ExternalService(conn, extension, pathParsed);
     } else {
       throw new Error('Unsupported metadata type');
     }
