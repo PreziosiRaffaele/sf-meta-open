@@ -1,7 +1,7 @@
 {
   "name": "sf-meta-open",
   "description": "Navigate in salesforce from CLI",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "dependencies": {
     "@oclif/core": "^4",
     "@salesforce/core": "^8",
